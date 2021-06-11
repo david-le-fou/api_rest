@@ -1,6 +1,6 @@
 <?php
 class Produit{
-    public function getProducts()
+    public function getProducts()//liste de tous les produit exister
         {
             global $conn;
             $query = "SELECT * FROM produit";
@@ -13,7 +13,7 @@ class Produit{
             header('Content-Type: application/json');
             return json_encode($response, JSON_PRETTY_PRINT);
         }
-    public function getProduct($id=0)
+    public function getProduct($id=0)//un seul produit
         {
           global $conn;
           $query = "SELECT * FROM produit";
@@ -28,9 +28,9 @@ class Produit{
             $response[] = $row;
           }
           header('Content-Type: application/json');
-          echo json_encode($response, JSON_PRETTY_PRINT);
+          return json_encode($response, JSON_PRETTY_PRINT);
         }
-    public function AddProduct()
+    public function AddProduct()//ajouter produit
         {
           global $conn;
           $name = $_POST["name"];
@@ -40,7 +40,7 @@ class Produit{
           $created = date('Y-m-d H:i:s');
           $modified = date('Y-m-d H:i:s');
       
-          echo $query="INSERT INTO produit(name, description, price, category_id, created, modified) VALUES('".$name."', '".$description."', '".$price."', '".$category."', '".$created."', '".$modified."')";
+           $query="INSERT INTO produit(name, description, price, category_id, created, modified) VALUES('".$name."', '".$description."', '".$price."', '".$category."', '".$created."', '".$modified."')";
       
           if(mysqli_query($conn, $query))
           {
@@ -59,7 +59,7 @@ class Produit{
           header('Content-Type: application/json');
           return json_encode($response);
     }
-    public function updateProduct($id)
+    public function updateProduct($id)//mettre ajour
     {
         global $conn;
         $_PUT = array(); //tableau qui va contenir les données reçues
@@ -92,7 +92,7 @@ class Produit{
         header('Content-Type: application/json');
         return json_encode($response);
     }
-    public function deleteProduct($id)
+    public function deleteProduct($id)//supprimer un produit
     {
         global $conn;
         $query = "DELETE FROM produit WHERE id=".$id;
